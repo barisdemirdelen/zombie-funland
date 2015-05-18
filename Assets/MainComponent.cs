@@ -1,42 +1,43 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Globalization;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets
 {
     public class MainComponent : MonoBehaviour
     {
-
-        public Text ResourceText;
-        public Button ResourceButton;
-        public Text RpsText;
-        public Button InvestButton; 
-
-        private double _resourceCount = 0.0;
-        private double _resourcePerSecond = 0.0;
-
-
+        private int _investmentCount;
+        private decimal _investmentReturn;
         private float _lastTime;
-
+        private decimal _resourceCount;
+        public Button InvestButton;
+        public Button ResourceButton;
+        public Text ResourceText;
+        public Text RpsText;
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             ResourceButton.interactable = true;
             _lastTime = Time.time;
+            _investmentReturn = 0.2m;
+            LoadGame();
+            UpdateTexts();
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             var currentTime = Time.time;
-            if (_lastTime + 1 <= currentTime)
+            if (_lastTime + 1 > currentTime)
             {
-                _resourceCount += _resourcePerSecond;
-                _lastTime = currentTime;
-                UpdateTexts();
+                return;
             }
-
-            InvestButton.interactable = _resourceCount >= 10;
-
+            _resourceCount += GetResourcePerSecond();
+            _lastTime = currentTime;
+            InvestButton.interactable = _resourceCount >= GetInvestmentCost();
+            UpdateTexts();
+            SaveGame();
         }
 
         public void OnResourceClicked()
@@ -47,19 +48,49 @@ namespace Assets
 
         public void OnInvestClicked()
         {
-            if (_resourceCount < 10)
+            if (_resourceCount < GetInvestmentCost())
             {
                 return;
             }
-            _resourceCount -= 10;
-            _resourcePerSecond += 0.2;
+            _resourceCount -= GetInvestmentCost();
+            _investmentCount++;
             UpdateTexts();
         }
 
         private void UpdateTexts()
         {
             ResourceText.text = "Resource: " + _resourceCount;
-            RpsText.text = "Resource per second: " + _resourcePerSecond;
+            RpsText.text = "Resource per second: " + GetResourcePerSecond();
+            InvestButton.GetComponentInChildren<Text>().text = "Invest cost: " + GetInvestmentCost();
+        }
+
+        private void LoadGame()
+        {
+            Decimal.TryParse(PlayerPrefs.GetString("resourceCount", "0.0"), out _resourceCount);
+            //Decimal.TryParse(PlayerPrefs.GetString("investmentReturn", "0.2m"), out _investmentReturn);
+            _investmentCount = PlayerPrefs.GetInt("investmentCount", 0);
+        }
+
+        private void SaveGame()
+        {
+            PlayerPrefs.SetString("resourceCount", _resourceCount.ToString(CultureInfo.InvariantCulture));
+            //PlayerPrefs.SetString("investmentReturn", _investmentReturn.ToString(CultureInfo.InvariantCulture));
+            PlayerPrefs.SetInt("investmentCount", _investmentCount);
+        }
+
+        private decimal GetResourcePerSecond()
+        {
+            return _investmentCount*_investmentReturn;
+        }
+
+        private decimal GetInvestmentCost()
+        {
+            var baseCost = 10m;
+            for (var i = 0; i < _investmentCount; i++)
+            {
+                baseCost += baseCost*0.27m;
+            }
+            return baseCost;
         }
     }
 }
