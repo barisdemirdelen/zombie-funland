@@ -6,58 +6,90 @@ namespace Assets.scripts
 {
     public class FunlandButtonComponent : MonoBehaviour
     {
-        private Button _panelButton;
-        private Text _panelText;
-        private Image _progressBar;
+        public Button PanelButton { get; private set; }
+        public Text PanelText { get; private set; }
+        public Image ProgressBar { get; private set; }
 
+        public decimal MoneyCost { get; set; }
+        public decimal ZombieCost { get; set; }
+        public decimal AudienceCost { get; set; }
+
+        public decimal MoneyReward { get; set; }
+        public decimal ZombieReward { get; set; }
+        public decimal AudienceReward { get; set; }
+
+        private float _duration = 3.0f;
+
+        private ScoreComponent _score;
         private bool _inProgress;
-
-        private float _duration;
         private float _startTime;
-
 
         // Use this for initialization
         private void Start()
         {
-            _panelButton = transform.FindChild("PanelButton").gameObject.GetComponent<Button>();
-            _panelText = transform.FindChild("DescriptionText").gameObject.GetComponent<Text>();
-            _progressBar = transform.FindChild("ProgressBar").gameObject.GetComponent<Image>();
+            PanelButton = transform.FindChild("PanelButton").gameObject.GetComponent<Button>();
+            PanelText = transform.FindChild("DescriptionText").gameObject.GetComponent<Text>();
+            ProgressBar = transform.FindChild("ProgressBar").gameObject.GetComponent<Image>();
+
+            _score = GameObject.Find("/Main").GetComponent<ScoreComponent>();
 
             _inProgress = false;
-            _panelButton.interactable = true;
-            _progressBar.fillAmount = 0.0f;
-            _duration = 3.0f;
+            PanelButton.interactable = true;
+            ProgressBar.fillAmount = 0.0f;
         }
 
         // Update is called once per frame
         private void Update()
         {
+            PanelButton.interactable = IsAvailable();
+
             if (!_inProgress)
             {
                 return;
             }
             if (Time.time - _startTime >= _duration)
             {
-                _progressBar.fillAmount = 0.0f;
+                ProgressBar.fillAmount = 0.0f;
                 _inProgress = false;
-                _panelButton.interactable = true;
+                PanelButton.interactable = true;
                 GiveRewards();
             }
             else
             {
-                _progressBar.fillAmount = Math.Min((Time.time - _startTime)/_duration, 1.0f);
+                ProgressBar.fillAmount = Math.Min((Time.time - _startTime)/_duration, 1.0f);
             }
         }
 
         private void GiveRewards()
         {
+            _score.Money += MoneyReward;
+            _score.Zombie += ZombieReward;
+            _score.Audience += AudienceReward;
         }
 
         public void OnButtonClick()
         {
+            if (!IsAvailable())
+            {
+                return;
+            }
             _inProgress = true;
-            _panelButton.interactable = false;
+            PanelButton.interactable = false;
             _startTime = Time.time;
+            _score.Money -= MoneyCost;
+            _score.Zombie -= ZombieCost;
+            _score.Audience -= AudienceCost;
+        }
+
+        private bool IsAvailable()
+        {
+            return _score.Money >= MoneyCost && _score.Zombie >= ZombieCost && _score.Audience >= AudienceCost && !_inProgress;
+        }
+
+        public float Duration
+        {
+            get { return _duration; }
+            set { _duration = value; }
         }
     }
 }

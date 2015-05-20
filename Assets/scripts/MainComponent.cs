@@ -5,19 +5,12 @@ namespace Assets.scripts
 {
     public class MainComponent : MonoBehaviour
     {
-        private int _investmentCount;
-        private decimal _investmentReturn;
+       /* private int _investmentCount;
+        private decimal _investmentReturn;*/
         private float _lastTime;
 
-        private decimal _money;
-        private decimal _zombie;
-        private decimal _audience;
+        private ScoreComponent _score;
 
-        private decimal _ticketPrice;
-
-        private decimal _mps;
-        private decimal _zps;
-        private decimal _aps;
 
         //public Button InvestButton;
         // public Button ResourceButton;
@@ -33,27 +26,23 @@ namespace Assets.scripts
             PlayerPrefs.DeleteAll();
             // ResourceButton.interactable = true;
             _lastTime = Time.time;
-            _investmentReturn = 0.2m;
-            _money = 100m;
-            _zombie = 0m;
-            _audience = 4m;
-            _ticketPrice = 3m;
-            _mps = 0;
-            _zps = 0;
-            _aps = 0;
+            _score = GetComponent<ScoreComponent>();
+            //_investmentReturn = 0.2m;
+
             //LoadGame();
             UpdateTexts();
+            CreateFunlandButtons();
         }
 
         // Update is called once per frame
         private void Update()
         {
-            var currentTime = Time.time;
+            /*var currentTime = Time.time;
             if (_lastTime + 1 > currentTime)
             {
                 return;
-            }
-            if (_zombie > 0 || _zps>0)
+            }*/
+            /*if (_zombie > 0 || _zps>0)
             {
                 _money += _mps*_audience;
                 _zombie += _zps;
@@ -62,12 +51,12 @@ namespace Assets.scripts
             _audience += _aps;
 
             _lastTime = currentTime;
-            // InvestButton.interactable = _money >= GetInvestmentCost();
+            // InvestButton.interactable = _money >= GetInvestmentCost();*/
             UpdateTexts();
             //SaveGame();
         }
 
-        public void OnResourceClicked()
+      /*  public void OnResourceClicked()
         {
             _money++;
             UpdateTexts();
@@ -82,16 +71,16 @@ namespace Assets.scripts
             _money -= GetInvestmentCost();
             _investmentCount++;
             UpdateTexts();
-        }
+        }*/
 
         private void UpdateTexts()
         {
-            MoneyText.text = "$" + _money.ToString("F2");
-            MpsText.text = _mps*_audience + "/sec";
-            ZombieText.text = "Zombies: " + _zombie.ToString("F0");
-            ZpsText.text = _zps + "/sec";
-            AudienceText.text = "Audience: " + _audience.ToString("F0");
-            ApsText.text = _aps + "/sec";
+            MoneyText.text = "$" + _score.Money.ToString("F2");
+            //MpsText.text = _mps*_audience + "/sec";
+            ZombieText.text = "Zombies: " + _score.Zombie.ToString("F0");
+           // ZpsText.text = _zps + "/sec";
+            AudienceText.text = "Audience: " + _score.Audience.ToString("F0");
+            //ApsText.text = _aps + "/sec";
             // InvestButton.GetComponentInChildren<Text>().text = "Invest cost: " + GetInvestmentCost();
         }
 
@@ -109,7 +98,7 @@ namespace Assets.scripts
             PlayerPrefs.SetInt("investmentCount", _investmentCount);
         }*/
 
-        public void BuyZombie()
+       /* public void BuyZombie()
         {
             if (_money < 10m)
             {
@@ -126,9 +115,9 @@ namespace Assets.scripts
             _zps -= 1m;
             _mps += _ticketPrice;
             UpdateTexts();
-        }
+        }*/
 
-        private decimal GetResourcePerSecond()
+        /*private decimal GetResourcePerSecond()
         {
             return _investmentCount*_investmentReturn;
         }
@@ -141,6 +130,24 @@ namespace Assets.scripts
                 baseCost += baseCost*0.27m;
             }
             return baseCost;
+        }*/
+
+
+        private void CreateFunlandButtons()
+        {
+            FunlandButtonComponent funlandButtonComponent = CreateFunlandButton();
+            funlandButtonComponent.MoneyCost = 10;
+            funlandButtonComponent.ZombieReward = 1;
         }
+
+        private FunlandButtonComponent CreateFunlandButton()
+        {
+            GameObject panel = GameObject.Find("/Canvas/Panel/TabPanel/FunlandPanel/CenterPanel");
+            GameObject button = (GameObject)Instantiate(Resources.Load("Prefab/ButtonPanel"));
+            button.transform.SetParent(panel.transform,false);
+            FunlandButtonComponent funlandButtonComponent = button.GetComponent<FunlandButtonComponent>();
+            return funlandButtonComponent;
+        }
+
     }
 }
