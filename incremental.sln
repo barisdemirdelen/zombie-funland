@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{57E48FFC-FE37-2672-B239-D90ECBE3919A}") = "incremental", "Assembly-CSharp-firstpass.csproj", "{6CE265A7-E046-EEE1-0CE4-88F343079A13}"
+EndProject
 Project("{57E48FFC-FE37-2672-B239-D90ECBE3919A}") = "incremental", "Assembly-CSharp.csproj", "{67BC7FDE-6586-55EF-0C3F-4D8190A62411}"
 EndProject
 Global
@@ -9,6 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CE265A7-E046-EEE1-0CE4-88F343079A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CE265A7-E046-EEE1-0CE4-88F343079A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CE265A7-E046-EEE1-0CE4-88F343079A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CE265A7-E046-EEE1-0CE4-88F343079A13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{67BC7FDE-6586-55EF-0C3F-4D8190A62411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{67BC7FDE-6586-55EF-0C3F-4D8190A62411}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67BC7FDE-6586-55EF-0C3F-4D8190A62411}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -17,7 +23,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																						GlobalSection(MonoDevelopProperties) = preSolution
+																											GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

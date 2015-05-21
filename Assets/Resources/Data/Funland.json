@@ -1,0 +1,18 @@
+{
+    "buttons": [
+		{
+			"name": "Buy Zombie",
+			"description": "Buy a generic zombie to show to the audience",
+			"duration": "3.0",
+			"moneyCost": "10.0",
+			"zombieReward": "1"
+		},
+       {
+			"name": "Start Fun Session",
+			"description": "Generate money based on audience",
+			"duration": "5.0",
+			"zombieCost": "1",
+			"moneyReward": "12.0"
+		}
+    ]
+}

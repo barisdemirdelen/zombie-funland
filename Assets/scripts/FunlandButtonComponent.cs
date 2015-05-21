@@ -9,6 +9,7 @@ namespace Assets.scripts
         public Button PanelButton { get; private set; }
         public Text PanelText { get; private set; }
         public Image ProgressBar { get; private set; }
+        public Text ButtonName { get; private set; }
 
         public decimal MoneyCost { get; set; }
         public decimal ZombieCost { get; set; }
@@ -24,12 +25,18 @@ namespace Assets.scripts
         private bool _inProgress;
         private float _startTime;
 
+        private string _name = "";
+        private string _description = "";
+
         // Use this for initialization
         private void Start()
         {
             PanelButton = transform.FindChild("PanelButton").gameObject.GetComponent<Button>();
             PanelText = transform.FindChild("DescriptionText").gameObject.GetComponent<Text>();
             ProgressBar = transform.FindChild("ProgressBar").gameObject.GetComponent<Image>();
+            ButtonName = PanelButton.transform.FindChild("Text").gameObject.GetComponent<Text>();
+            ButtonName.text = Name;
+            PanelText.text = Description;
 
             _score = GameObject.Find("/Main").GetComponent<ScoreComponent>();
 
@@ -90,6 +97,32 @@ namespace Assets.scripts
         {
             get { return _duration; }
             set { _duration = value; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                if (ButtonName != null)
+                {
+                    ButtonName.text = _name;
+                }
+            }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                _description = value;
+                if (PanelText != null)
+                {
+                    PanelText.text = _name;
+                }
+            }
         }
     }
 }
