@@ -78,11 +78,11 @@ namespace Assets.scripts
 
         private void UpdateTexts()
         {
-            MoneyText.text = "$" + _score.Money.ToString("F2");
+            MoneyText.text = "$" + NumberFormatter.FormatMoney(_score.Money);
             //MpsText.text = _mps*_audience + "/sec";
-            ZombieText.text = "Zombies: " + _score.Zombie.ToString("F0");
+            ZombieText.text = "Zombies: " + NumberFormatter.Format(_score.Zombie);
             // ZpsText.text = _zps + "/sec";
-            AudienceText.text = "Audience: " + _score.Audience.ToString("F0");
+            AudienceText.text = "Audience: " + NumberFormatter.Format(_score.Audience);
             //ApsText.text = _aps + "/sec";
             // InvestButton.GetComponentInChildren<Text>().text = "Invest cost: " + GetInvestmentCost();
         }
@@ -191,12 +191,16 @@ namespace Assets.scripts
 
                 i++;
             }
-            print("There were "+ i+ " buttons");
+            var panel = GameObject.Find("/Canvas/Panel/TabPanel/FunlandPanel/CenterPanel/Mask/GridPanel");
+            panel.GetComponent<RectTransform>().sizeDelta = new Vector2(panel.GetComponent<RectTransform>().sizeDelta.x, Math.Min((float)Math.Ceiling((i+2)/2.0)*100 - 400,400));
+            var scrollbar = GameObject.Find("/Canvas/Panel/TabPanel/FunlandPanel/Scrollbar");
+            scrollbar.GetComponent<Scrollbar>().value = 1;
+            print(i);
         }
 
         private static FunlandButtonComponent CreateFunlandButton()
         {
-            var panel = GameObject.Find("/Canvas/Panel/TabPanel/FunlandPanel/CenterPanel");
+            var panel = GameObject.Find("/Canvas/Panel/TabPanel/FunlandPanel/CenterPanel/Mask/GridPanel");
             var button = (GameObject) Instantiate(Resources.Load("Prefab/ButtonPanel"));
             button.transform.SetParent(panel.transform, false);
             var funlandButtonComponent = button.GetComponent<FunlandButtonComponent>();

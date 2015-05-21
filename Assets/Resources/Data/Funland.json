@@ -1,18 +1,82 @@
 {
     "buttons": [
 		{
-			"name": "Buy Zombie",
-			"description": "Buy a generic zombie to show to the audience",
+			"name": "Buy a Zombie",
+			"description": "Buy a zombie to show to the audience.",
 			"duration": "3.0",
 			"moneyCost": "10.0",
 			"zombieReward": "1"
 		},
        {
-			"name": "Start Fun Session",
-			"description": "Generate money based on audience",
+			"name": "Execute a Zombie",
+			"description": "People will love it!",
 			"duration": "5.0",
 			"zombieCost": "1",
-			"moneyReward": "12.0"
+			"audienceReward": "1"
+		},
+		{
+			"name": "Collect Tips",
+			"description": "Easy money!",
+			"duration": "4.5",
+			"audienceCost": "1",
+			"moneyReward": "20.0"
+		}
+		{
+			"name": "Buy 2xZombie",
+			"description": "Two times fun for a little extra money.",
+			"duration": "5.0",
+			"moneyCost": "25.0",
+			"zombieReward": "2"
+		},
+		{
+			"name": "Zombie Duel",
+			"description": "Battle of two zombies. Both will die.",
+			"duration": "15.0",
+			"zombieCost": "2",
+			"audienceReward": "4"
+		},
+		{
+			"name": "Cheat",
+			"description": "Test",
+			"duration": "1.0",
+			"moneyReward": "200000000000000000000.0",
+			"zombieReward": "2000000",
+			"audienceReward": "4000"
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"duration": "1.0",
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"duration": "1.0",
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"duration": "1.0",
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"duration": "1.0",
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"duration": "1.0",
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"duration": "1.0",
+		},
+		{
+			"name": "Test",
+			"description": "Test",
+			"duration": "1.0",
 		}
     ]
 }

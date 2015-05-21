@@ -7,18 +7,15 @@ namespace Assets.scripts
         public decimal Zombie { get; set; }
         public decimal Audience { get; set; }
 
-        public decimal TicketPrice { get; set; }
-
         public decimal Mps { get; set; }
         public decimal Zps { get; set; }
         public decimal Aps { get; set; }
 
         // Use this for initialization
         void Start () {
-            Money = 100m;
+            Money = 10m;
             Zombie = 0m;
-            Audience = 4m;
-            TicketPrice = 3m;
+            Audience = 0m;
             Mps = 0;
             Zps = 0;
             Aps = 0;

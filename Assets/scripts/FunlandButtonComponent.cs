@@ -35,8 +35,8 @@ namespace Assets.scripts
             PanelText = transform.FindChild("DescriptionText").gameObject.GetComponent<Text>();
             ProgressBar = transform.FindChild("ProgressBar").gameObject.GetComponent<Image>();
             ButtonName = PanelButton.transform.FindChild("Text").gameObject.GetComponent<Text>();
-            ButtonName.text = Name;
-            PanelText.text = Description;
+            Name = _name;
+            Description = _description;
 
             _score = GameObject.Find("/Main").GetComponent<ScoreComponent>();
 
@@ -90,7 +90,8 @@ namespace Assets.scripts
 
         private bool IsAvailable()
         {
-            return _score.Money >= MoneyCost && _score.Zombie >= ZombieCost && _score.Audience >= AudienceCost && !_inProgress;
+            return _score.Money >= MoneyCost && _score.Zombie >= ZombieCost && _score.Audience >= AudienceCost &&
+                   !_inProgress;
         }
 
         public float Duration
@@ -118,10 +119,45 @@ namespace Assets.scripts
             set
             {
                 _description = value;
-                if (PanelText != null)
+                if (PanelText == null)
                 {
-                    PanelText.text = _name;
+                    return;
                 }
+                var costText = "";
+                var rewardText = "";
+                if (MoneyCost > 0)
+                {
+                    costText += "-$" + NumberFormatter.FormatMoney(MoneyCost) + "  ";
+                }
+                if (ZombieCost > 0)
+                {
+                    costText += "-" + NumberFormatter.Format(ZombieCost) + " Zombies  ";
+                }
+                if (AudienceCost > 0)
+                {
+                    costText += "-" + NumberFormatter.Format(AudienceCost) + " Audience  ";
+                }
+                if (costText != "")
+                {
+                    costText += "\n";
+                }
+                if (MoneyReward > 0)
+                {
+                    rewardText += "+$" + NumberFormatter.FormatMoney(MoneyReward) + "  ";
+                }
+                if (ZombieReward > 0)
+                {
+                    rewardText += "+" + NumberFormatter.Format(ZombieReward) + " Zombies  ";
+                }
+                if (AudienceReward > 0)
+                {
+                    rewardText += "+" + NumberFormatter.Format(AudienceReward) + " Audience  ";
+                }
+                if (rewardText != "")
+                {
+                    rewardText += "\n";
+                }
+                PanelText.text = costText + rewardText + _description;
             }
         }
     }

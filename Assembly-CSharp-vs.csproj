@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\FunlandButtonComponent.cs" />
      <Compile Include="Assets\Scripts\MainComponent.cs" />
+     <Compile Include="Assets\Scripts\NumberFormatter.cs" />
      <Compile Include="Assets\Scripts\ScoreComponent.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
