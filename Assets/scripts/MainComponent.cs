@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts;
 using SimpleJSON;
 using UnityEngine;
 using UnityEngine.UI;
@@ -78,7 +79,7 @@ namespace Assets.scripts
 
         private void UpdateTexts()
         {
-            MoneyText.text = "$" + NumberFormatter.FormatMoney(_score.Money);
+            MoneyText.text = "$" + NumberFormatter.Format(_score.Money, true);
             //MpsText.text = _mps*_audience + "/sec";
             ZombieText.text = "Zombies: " + NumberFormatter.Format(_score.Zombie);
             // ZpsText.text = _zps + "/sec";
@@ -192,7 +193,9 @@ namespace Assets.scripts
                 i++;
             }
             var panel = GameObject.Find("/Canvas/Panel/TabPanel/FunlandPanel/CenterPanel/Mask/GridPanel");
-            panel.GetComponent<RectTransform>().sizeDelta = new Vector2(panel.GetComponent<RectTransform>().sizeDelta.x, Math.Min((float)Math.Ceiling((i+2)/2.0)*100 - 400,400));
+            panel.GetComponent<RectTransform>().sizeDelta = new Vector2(
+                panel.GetComponent<RectTransform>().sizeDelta.x,
+                Math.Min((float) Math.Ceiling((i + 2)/2.0)*100 - 400, 400));
             var scrollbar = GameObject.Find("/Canvas/Panel/TabPanel/FunlandPanel/Scrollbar");
             scrollbar.GetComponent<Scrollbar>().value = 1;
             print(i);

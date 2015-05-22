@@ -2,7 +2,8 @@
 
 namespace Assets.scripts
 {
-    public class ScoreComponent : MonoBehaviour {
+    public class ScoreComponent : MonoBehaviour
+    {
         public decimal Money { get; set; }
         public decimal Zombie { get; set; }
         public decimal Audience { get; set; }
@@ -12,7 +13,8 @@ namespace Assets.scripts
         public decimal Aps { get; set; }
 
         // Use this for initialization
-        void Start () {
+        private void Start()
+        {
             Money = 10m;
             Zombie = 0m;
             Audience = 0m;
@@ -20,10 +22,10 @@ namespace Assets.scripts
             Zps = 0;
             Aps = 0;
         }
-	
+
         // Update is called once per frame
-        void Update () {
-	
+        private void Update()
+        {
         }
     }
 }

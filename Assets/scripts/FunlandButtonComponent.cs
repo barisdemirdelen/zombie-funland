@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -127,7 +128,7 @@ namespace Assets.scripts
                 var rewardText = "";
                 if (MoneyCost > 0)
                 {
-                    costText += "-$" + NumberFormatter.FormatMoney(MoneyCost) + "  ";
+                    costText += "-$" + NumberFormatter.Format(MoneyCost, true) + "  ";
                 }
                 if (ZombieCost > 0)
                 {
@@ -143,7 +144,7 @@ namespace Assets.scripts
                 }
                 if (MoneyReward > 0)
                 {
-                    rewardText += "+$" + NumberFormatter.FormatMoney(MoneyReward) + "  ";
+                    rewardText += "+$" + NumberFormatter.Format(MoneyReward, true) + "  ";
                 }
                 if (ZombieReward > 0)
                 {
