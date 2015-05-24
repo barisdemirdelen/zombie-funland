@@ -56,9 +56,9 @@ namespace Assets.scripts
             {
                 return;
             }
-            var epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-            var timestamp =(System.DateTime.UtcNow - epochStart).TotalMilliseconds;
-            if (timestamp - StartTime >= _duration*1000)
+
+            var currentTime = TimeManager.GetMilliseconds();
+            if (currentTime - StartTime >= _duration * 1000)
             {
                 ProgressBar.fillAmount = 0.0f;
                 InProgress = false;
@@ -67,7 +67,7 @@ namespace Assets.scripts
             }
             else
             {
-                ProgressBar.fillAmount = (float)((timestamp - StartTime) / _duration/1000.0);
+                ProgressBar.fillAmount = (float)((currentTime - StartTime) / _duration / 1000.0);
             }
         }
 
@@ -86,10 +86,7 @@ namespace Assets.scripts
             }
             InProgress = true;
             PanelButton.interactable = false;
-            var epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-            var timestamp = (System.DateTime.UtcNow - epochStart).TotalMilliseconds;
-            
-            StartTime = timestamp;
+            StartTime = TimeManager.GetMilliseconds();
             _score.Money -= MoneyCost;
             _score.Zombie -= ZombieCost;
             _score.Audience -= AudienceCost;

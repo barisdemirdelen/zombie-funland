@@ -33,9 +33,7 @@ namespace Assets.scripts
         // Use this for initialization
         private void Start()
         {
-            var epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-            var timestamp = (System.DateTime.UtcNow - epochStart).TotalMilliseconds;
-            _lastTime = timestamp;
+            _lastTime = TimeManager.GetMilliseconds();
             _score = GetComponent<ScoreComponent>();
 
             CreateFunlandButtons();
@@ -48,9 +46,8 @@ namespace Assets.scripts
         // Update is called once per frame
         private void Update()
         {
-            var epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
-            var timestamp = (System.DateTime.UtcNow - epochStart).TotalMilliseconds;
-            var currentTime = timestamp;
+            
+            var currentTime = TimeManager.GetMilliseconds();
             if (_lastTime + 1000 > currentTime)
             {
                 return;
@@ -112,6 +109,14 @@ namespace Assets.scripts
             Decimal.TryParse(PlayerPrefs.GetString("aps", "0.0"), out aps);
             _score.Aps = aps;
 
+            Double.TryParse(PlayerPrefs.GetString("lastTime", _lastTime.ToString(CultureInfo.InvariantCulture)), out _lastTime);
+            var currentTime = TimeManager.GetMilliseconds();
+            var seconds = (int) Math.Floor( (currentTime - _lastTime)/1000);
+            print("Earned " + _score.Mps * seconds + " " + _score.Zps*seconds+" "+_score.Aps*seconds);
+            _score.Money += _score.Mps*seconds;
+            _score.Zombie += _score.Zps*seconds;
+            _score.Audience += _score.Aps*seconds;
+
             foreach (var managementButton in _managementButtons)
             {
                 var active = PlayerPrefs.GetInt("management" + managementButton.Id, 0);
@@ -139,9 +144,11 @@ namespace Assets.scripts
             PlayerPrefs.SetString("zombie", _score.Zombie.ToString(CultureInfo.InvariantCulture));
             PlayerPrefs.SetString("audience", _score.Audience.ToString(CultureInfo.InvariantCulture));
 
-            PlayerPrefs.SetString("mps", _score.Aps.ToString(CultureInfo.InvariantCulture));
+            PlayerPrefs.SetString("mps", _score.Mps.ToString(CultureInfo.InvariantCulture));
             PlayerPrefs.SetString("zps", _score.Zps.ToString(CultureInfo.InvariantCulture));
             PlayerPrefs.SetString("aps", _score.Aps.ToString(CultureInfo.InvariantCulture));
+
+            PlayerPrefs.SetString("lastTime", TimeManager.GetMilliseconds().ToString(CultureInfo.InvariantCulture));
 
             foreach (var managementButton in _managementButtons)
             {
