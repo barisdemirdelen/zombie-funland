@@ -1,6 +1,7 @@
 {
     "buttons": [
 		{
+			"id": "1",
 			"name": "Buy a Zombie",
 			"description": "Buy a zombie to show to the audience.",
 			"duration": "3.0",
@@ -8,6 +9,7 @@
 			"zombieReward": "1"
 		},
        {
+			"id": "2",
 			"name": "Execute a Zombie",
 			"description": "People will love it!",
 			"duration": "5.0",
@@ -15,20 +17,23 @@
 			"audienceReward": "1"
 		},
 		{
+			"id": "3",
 			"name": "Collect Tips",
 			"description": "Easy money!",
 			"duration": "4.5",
 			"audienceCost": "1",
-			"moneyReward": "20.0"
+			"moneyReward": "15.0"
 		}
 		{
-			"name": "Buy 2xZombie",
-			"description": "Two times fun for a little extra money.",
+			"id": "4",
+			"name": "Buy 2 Zombies",
+			"description": "Two times fun for a little discount.",
 			"duration": "5.0",
-			"moneyCost": "25.0",
+			"moneyCost": "18.0",
 			"zombieReward": "2"
 		},
 		{
+			"id": "5",
 			"name": "Zombie Duel",
 			"description": "Battle of two zombies. Both will die.",
 			"duration": "15.0",
@@ -36,47 +41,36 @@
 			"audienceReward": "4"
 		},
 		{
-			"name": "Cheat",
+			"id": "6",
+			"name": "Collect Entrance Fee",
+			"description": "Easier money.",
+			"duration": "10.5",
+			"audienceCost": "3",
+			"moneyReward": "60.0"
+		},
+		{
+			"id": "7",
+			"name": "Buy 10 Zombies",
+			"description": "More zombies for a discount.",
+			"duration": "15",
+			"moneyCost": "80.0",
+			"zombieReward": "10.0"
+		},
+		{
+			"id": "8",
+			"name": "Conversation with zombies.",
+			"description": "Spoiler: Everyone dies.",
+			"duration": "15",
+			"zombieCost": "10",
+			"audienceCost": "10",
+			"moneyReward": "1000.0"
+		},
+		{
+			"id": "999",
+			"name": "Cheat Money",
 			"description": "Test",
 			"duration": "1.0",
 			"moneyReward": "200000000000000000000.0",
-			"zombieReward": "2000000",
-			"audienceReward": "4000"
-		},
-		{
-			"name": "Test",
-			"description": "Test",
-			"duration": "1.0",
-		},
-		{
-			"name": "Test",
-			"description": "Test",
-			"duration": "1.0",
-		},
-		{
-			"name": "Test",
-			"description": "Test",
-			"duration": "1.0",
-		},
-		{
-			"name": "Test",
-			"description": "Test",
-			"duration": "1.0",
-		},
-		{
-			"name": "Test",
-			"description": "Test",
-			"duration": "1.0",
-		},
-		{
-			"name": "Test",
-			"description": "Test",
-			"duration": "1.0",
-		},
-		{
-			"name": "Test",
-			"description": "Test",
-			"duration": "1.0",
 		}
     ]
 }

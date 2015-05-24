@@ -15,12 +15,7 @@ namespace Assets.scripts
         // Use this for initialization
         private void Start()
         {
-            Money = 10m;
-            Zombie = 0m;
-            Audience = 0m;
-            Mps = 0;
-            Zps = 0;
-            Aps = 0;
+            
         }
 
         // Update is called once per frame

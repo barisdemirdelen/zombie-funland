@@ -7,6 +7,8 @@ namespace Assets.scripts
 {
     public class FunlandButtonComponent : MonoBehaviour
     {
+        public int Id { get; set; }
+
         public Button PanelButton { get; private set; }
         public Text PanelText { get; private set; }
         public Image ProgressBar { get; private set; }
@@ -23,8 +25,8 @@ namespace Assets.scripts
         private float _duration = 3.0f;
 
         private ScoreComponent _score;
-        private bool _inProgress;
-        private float _startTime;
+        public bool InProgress { get; set; }
+        public double StartTime { get; set; }
 
         private string _name = "";
         private string _description = "";
@@ -41,7 +43,6 @@ namespace Assets.scripts
 
             _score = GameObject.Find("/Main").GetComponent<ScoreComponent>();
 
-            _inProgress = false;
             PanelButton.interactable = true;
             ProgressBar.fillAmount = 0.0f;
         }
@@ -51,20 +52,22 @@ namespace Assets.scripts
         {
             PanelButton.interactable = IsAvailable();
 
-            if (!_inProgress)
+            if (!InProgress)
             {
                 return;
             }
-            if (Time.time - _startTime >= _duration)
+            var epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
+            var timestamp =(System.DateTime.UtcNow - epochStart).TotalMilliseconds;
+            if (timestamp - StartTime >= _duration*1000)
             {
                 ProgressBar.fillAmount = 0.0f;
-                _inProgress = false;
+                InProgress = false;
                 PanelButton.interactable = true;
                 GiveRewards();
             }
             else
             {
-                ProgressBar.fillAmount = Math.Min((Time.time - _startTime)/_duration, 1.0f);
+                ProgressBar.fillAmount = (float)((timestamp - StartTime) / _duration/1000.0);
             }
         }
 
@@ -81,9 +84,12 @@ namespace Assets.scripts
             {
                 return;
             }
-            _inProgress = true;
+            InProgress = true;
             PanelButton.interactable = false;
-            _startTime = Time.time;
+            var epochStart = new System.DateTime(1970, 1, 1, 8, 0, 0, System.DateTimeKind.Utc);
+            var timestamp = (System.DateTime.UtcNow - epochStart).TotalMilliseconds;
+            
+            StartTime = timestamp;
             _score.Money -= MoneyCost;
             _score.Zombie -= ZombieCost;
             _score.Audience -= AudienceCost;
@@ -92,7 +98,7 @@ namespace Assets.scripts
         private bool IsAvailable()
         {
             return _score.Money >= MoneyCost && _score.Zombie >= ZombieCost && _score.Audience >= AudienceCost &&
-                   !_inProgress;
+                   !InProgress;
         }
 
         public float Duration

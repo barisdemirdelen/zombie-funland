@@ -1,0 +1,25 @@
+{
+    "buttons": [
+		{
+			"id": "1",
+			"name": "Dirt Path",
+			"description": "Will bring more audience.",
+			"moneyCost": "100.0",
+			"audienceReward": "0.1"
+		},
+       {
+			"id": "2",
+			"name": "Zombie Supply",
+			"description": "Buy out a zombie supplier",
+			"moneyCost": "1000.0",
+			"zombieReward": "1"
+		},
+		{
+			"id": "3",
+			"name": "Request Donations",
+			"description": "Donate!",
+			"audienceCost": "100",
+			"moneyReward": "1.0"
+		}
+    ]
+}
